@@ -1,12 +1,24 @@
-# v0 runtime files (should only exist in preview, not in git)
-__v0_runtime_loader.js
-__v0_devtools.tsx
-__v0_jsx-dev-runtime.ts
-instrumentation-client.js
-instrumentation-client.ts
-
-# Common ignores
+# Dependencies
 node_modules/
+
+# Next.js
 .next/
+out/
+
+# Environment
 .env*.local
+.env
+
+# System files
 .DS_Store
+Thumbs.db
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code / AI assistants
+.claude/
+.opencode/
