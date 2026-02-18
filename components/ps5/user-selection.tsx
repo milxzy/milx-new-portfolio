@@ -106,15 +106,15 @@ export function UserSelection({ onSelectProfile }: Props) {
       {/* main stuff */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-light text-white mb-4 tracking-tight">
+        <div className="text-center mb-10 md:mb-16 px-4">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-light text-white mb-3 md:mb-4 tracking-tight">
             Welcome Back to <span className="font-medium">MilxOS</span>
           </h1>
-          <p className="text-white/60 text-xl font-light">{"Who's playing?"}</p>
+          <p className="text-white/60 text-base md:text-xl font-light">{"Who's playing?"}</p>
         </div>
 
         {/* controller icon */}
-        <div className="relative mb-8">
+        <div className="relative mb-6 md:mb-8">
           <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl" />
           <Gamepad2 className="relative w-8 h-8 text-white/60" />
           <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-[10px] text-white font-medium">
@@ -123,7 +123,7 @@ export function UserSelection({ onSelectProfile }: Props) {
         </div>
 
         {/* profile picker */}
-        <div className="flex items-center gap-8 md:gap-12">
+        <div className="flex items-center justify-center gap-4 sm:gap-8 md:gap-12 w-full px-4">
           {profiles.map((profile, i) => {
             const Icon = profile.icon
             const selected = i === idx
@@ -136,7 +136,7 @@ export function UserSelection({ onSelectProfile }: Props) {
                   setIdx(i)
                   pick(profile.id)
                 }}
-                className={`group relative flex flex-col items-center transition-all duration-300 ${
+                className={`group relative flex flex-col items-center flex-shrink-0 w-24 sm:w-28 md:w-36 transition-all duration-300 ${
                   selected ? "scale-110" : "scale-100 opacity-70 hover:opacity-100"
                 }`}
               >
@@ -147,16 +147,16 @@ export function UserSelection({ onSelectProfile }: Props) {
 
                 {/* avatar circle */}
                 <div
-                  className={`relative w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br ${profile.color} flex items-center justify-center transition-all duration-300 ${
+                  className={`relative w-16 h-16 sm:w-20 sm:h-20 md:w-32 md:h-32 rounded-full bg-gradient-to-br ${profile.color} flex items-center justify-center transition-all duration-300 ${
                     selected ? "ring-4 ring-white/50 animate-glow" : ""
                   }`}
                 >
-                  <Icon className="w-10 h-10 md:w-12 md:h-12 text-white" />
+                  <Icon className="w-7 h-7 sm:w-9 sm:h-9 md:w-12 md:h-12 text-white" />
                 </div>
 
                 {/* name */}
                 <span
-                  className={`mt-4 text-sm md:text-base font-medium transition-colors duration-300 ${
+                  className={`mt-3 text-xs sm:text-sm md:text-base font-medium text-center leading-tight transition-colors duration-300 ${
                     selected ? "text-white" : "text-white/60"
                   }`}
                 >
@@ -177,7 +177,7 @@ export function UserSelection({ onSelectProfile }: Props) {
         {/* power btn */}
         <button
           type="button"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:right-8 md:translate-x-0 p-3 rounded-full border border-white/20 text-white/40 hover:text-white/60 hover:border-white/40 transition-all duration-300"
+          className="absolute bottom-20 left-1/2 -translate-x-1/2 md:bottom-8 md:left-auto md:right-8 md:translate-x-0 p-3 rounded-full border border-white/20 text-white/40 hover:text-white/60 hover:border-white/40 transition-all duration-300"
           aria-label="Power"
         >
           <Power className="w-6 h-6" />

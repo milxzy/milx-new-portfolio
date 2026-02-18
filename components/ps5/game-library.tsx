@@ -31,6 +31,8 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
     const [idx, setIdx] = useState(0);
     const [tab, setTab] = useState<"games" | "media">("games");
     const [loaded, setLoaded] = useState(false);
+    const [showAllTech, setShowAllTech] = useState(false);
+    const [showMediaModal, setShowMediaModal] = useState(false);
     const scrollBox = useRef<HTMLDivElement>(null);
 
     // load projects for this profile type
@@ -58,6 +60,11 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
     }, [idx, projects, onSelectProject, onBack]);
+
+    // reset tech expansion when project changes
+    useEffect(() => {
+        setShowAllTech(false);
+    }, [idx]);
 
     // scroll selected tile into view
     useEffect(() => {
@@ -101,24 +108,24 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
             </div>
 
             {/* top nav */}
-            <header className="relative z-10 flex items-center justify-between px-8 py-6">
-                <div className="flex items-center gap-8">
+            <header className="relative z-10 flex items-center justify-between px-4 md:px-8 py-4 md:py-6">
+                <div className="flex items-center gap-4 md:gap-8">
                     {/* back btn */}
                     <button
                         type="button"
                         onClick={onBack}
-                        className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                        className="p-2 flex-shrink-0 rounded-full hover:bg-white/10 transition-colors"
                         aria-label="Go back"
                     >
                         <ChevronLeft className="w-6 h-6 text-white/80" />
                     </button>
 
                     {/* tabs */}
-                    <nav className="flex items-center gap-6">
+                    <nav className="flex items-center gap-4 md:gap-6">
                         <button
                             type="button"
                             onClick={() => setTab("games")}
-                            className={`text-xl font-medium transition-colors ${
+                            className={`text-base md:text-xl font-medium transition-colors ${
                                 tab === "games"
                                     ? "text-white"
                                     : "text-white/50 hover:text-white/70"
@@ -128,8 +135,8 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
                         </button>
                         <button
                             type="button"
-                            onClick={() => setTab("media")}
-                            className={`text-xl font-medium transition-colors ${
+                            onClick={() => setShowMediaModal(true)}
+                            className={`text-base md:text-xl font-medium transition-colors ${
                                 tab === "media"
                                     ? "text-white"
                                     : "text-white/50 hover:text-white/70"
@@ -141,27 +148,27 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
                 </div>
 
                 {/* right side stuff */}
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3 md:gap-6">
                     <button
                         type="button"
-                        className="text-white/60 hover:text-white transition-colors"
+                        className="text-white/60 hover:text-white transition-colors hidden sm:block"
                         aria-label="Search"
                     >
                         <Search className="w-6 h-6" />
                     </button>
                     <button
                         type="button"
-                        className="text-white/60 hover:text-white transition-colors"
+                        className="text-white/60 hover:text-white transition-colors hidden sm:block"
                         aria-label="Settings"
                     >
                         <Settings className="w-6 h-6" />
                     </button>
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
+                    <div className="w-8 h-8 flex-shrink-0 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
                         <span className="text-white text-xs font-medium">
                             {names[profile][0]}
                         </span>
                     </div>
-                    <span className="text-white/80 text-lg">{time}</span>
+                    <span className="text-white/80 text-sm md:text-lg">{time}</span>
                 </div>
             </header>
 
@@ -264,21 +271,25 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
                 {/* right - card and stats */}
                 <div className="hidden lg:flex flex-col gap-4 w-80">
                     {/* project card */}
-                    <div className="bg-black/40 backdrop-blur-sm rounded-2xl overflow-hidden">
+                    <button
+                        type="button"
+                        onClick={() => onSelectProject(current)}
+                        className="bg-black/40 backdrop-blur-sm rounded-2xl overflow-hidden text-left hover:ring-2 hover:ring-white/30 transition-all duration-200 w-full"
+                    >
                         <img
                             src={current.coverImage || "/placeholder.svg"}
                             alt={current.title}
                             className="w-full h-48 object-cover"
                         />
-                        <div className="p-4">
-                            <span className="inline-block px-3 py-1 bg-primary/20 text-primary text-sm rounded-full mb-2">
-                                Project
+                        <div className="p-4 flex items-center justify-between">
+                            <span className="inline-block px-3 py-1 bg-primary/20 text-primary text-sm rounded-full">
+                                {current.tag}
                             </span>
-                            <p className="text-white/60 text-sm">
+                            <p className="text-white/60 text-sm hover:text-white/80 transition-colors">
                                 View Details
                             </p>
                         </div>
-                    </div>
+                    </button>
 
                     {/* progress */}
                     <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4">
@@ -286,21 +297,16 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
                         <div className="flex-1">
                             <div className="flex justify-between text-white/60 text-sm mb-1">
                                 <span>Progress</span>
-                                <span>Tech Stack</span>
                             </div>
                             <div className="flex justify-between text-white font-medium">
                                 <span>{current.progress}%</span>
-                                <span>
-                                    {current.achievements}/
-                                    {current.totalAchievements}
-                                </span>
                             </div>
                         </div>
                     </div>
 
                     {/* tech badges */}
                     <div className="flex flex-wrap gap-2">
-                        {current.techStack.slice(0, 4).map((tech) => (
+                        {(showAllTech ? current.techStack : current.techStack.slice(0, 4)).map((tech) => (
                             <span
                                 key={tech}
                                 className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white/80 text-sm"
@@ -308,10 +314,14 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
                                 {tech}
                             </span>
                         ))}
-                        {current.techStack.length > 4 && (
-                            <span className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white/60 text-sm">
+                        {!showAllTech && current.techStack.length > 4 && (
+                            <button
+                                type="button"
+                                onClick={() => setShowAllTech(true)}
+                                className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white/60 text-sm hover:bg-white/20 hover:text-white/80 transition-colors"
+                            >
                                 +{current.techStack.length - 4} more
-                            </span>
+                            </button>
                         )}
                     </div>
                 </div>
@@ -335,6 +345,37 @@ export function GameLibrary({ profile, onBack, onSelectProject }: Props) {
                     <span>Select</span>
                 </div>
             </div>
+
+            {/* media coming soon modal */}
+            {showMediaModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+                    <div
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                        onClick={() => setShowMediaModal(false)}
+                        onKeyDown={(e) => e.key === "Enter" && setShowMediaModal(false)}
+                        role="button"
+                        tabIndex={0}
+                        aria-label="Close modal"
+                    />
+                    <div className="relative z-10 bg-gradient-to-br from-[#1a2030] to-[#0a0f14] rounded-3xl p-8 md:p-12 max-w-sm w-full text-center border border-white/10">
+                        <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-primary">
+                                <rect x="2" y="7" width="20" height="13" rx="2"/>
+                                <polyline points="17 2 12 7 7 2"/>
+                            </svg>
+                        </div>
+                        <h2 className="text-2xl font-bold text-white mb-3">Coming Soon</h2>
+                        <p className="text-white/60 leading-relaxed">YouTube and Blog are on the way. Check back soon.</p>
+                        <button
+                            type="button"
+                            onClick={() => setShowMediaModal(false)}
+                            className="mt-8 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full text-white font-medium transition-colors"
+                        >
+                            Got it
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

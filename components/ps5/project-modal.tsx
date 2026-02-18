@@ -73,7 +73,7 @@ export function ProjectModal({ project, onClose }: Props) {
                             <div className="mb-8">
                                 <div className="flex items-center gap-3 mb-4">
                                     <span className="px-4 py-1 bg-primary/20 text-primary text-sm rounded-full font-medium">
-                                        Project
+                                        {project.tag}
                                     </span>
                                     <span className="text-white/40 text-sm">
                                         Full Details
@@ -173,34 +173,25 @@ export function ProjectModal({ project, onClose }: Props) {
                         <div className="lg:w-80 space-y-6">
                             {/* progress card */}
                             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6">
-                                <div className="flex items-center gap-4 mb-4">
+                                <div className="flex flex-col items-center gap-3 mb-4">
                                     <Trophy className="w-12 h-12 text-amber-400" />
-                                    <div>
-                                        <p className="text-white/60 text-sm">
-                                            Achievements
-                                        </p>
-                                        <p className="text-2xl font-bold text-white">
-                                            {project.achievements}/
-                                            {project.totalAchievements}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-white/60">
-                                            Progress
-                                        </span>
-                                        <span className="text-white">
-                                            {project.progress}%
-                                        </span>
-                                    </div>
-                                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                                        <div
-                                            className="h-full bg-gradient-to-r from-primary to-blue-400 rounded-full transition-all duration-500"
-                                            style={{
-                                                width: `${project.progress}%`,
-                                            }}
-                                        />
+                                    <div className="w-full space-y-2">
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-white/60">
+                                                Progress
+                                            </span>
+                                            <span className="text-white">
+                                                {project.progress}%
+                                            </span>
+                                        </div>
+                                        <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                                            <div
+                                                className="h-full bg-gradient-to-r from-primary to-blue-400 rounded-full transition-all duration-500"
+                                                style={{
+                                                    width: `${project.progress}%`,
+                                                }}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +215,7 @@ export function ProjectModal({ project, onClose }: Props) {
                             </div>
 
                             {/* quick stats */}
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-4">
                                 <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 text-center">
                                     <p className="text-3xl font-bold text-white mb-1">
                                         {project.techStack.length}
@@ -233,26 +224,18 @@ export function ProjectModal({ project, onClose }: Props) {
                                         Technologies
                                     </p>
                                 </div>
-                                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 text-center">
-                                    <p className="text-3xl font-bold text-white mb-1">
-                                        {project.achievements}
-                                    </p>
-                                    <p className="text-white/60 text-sm">
-                                        Features
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* bottom hint */}
-                <div className="absolute bottom-6 left-6 flex items-center gap-4 text-white/40 text-sm">
-                    <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center text-xs">
-                            O
+                    {/* bottom hint */}
+                    <div className="flex items-center gap-4 text-white/40 text-sm mt-8">
+                        <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center text-xs">
+                                O
+                            </div>
+                            <span>Close</span>
                         </div>
-                        <span>Close</span>
                     </div>
                 </div>
             </div>

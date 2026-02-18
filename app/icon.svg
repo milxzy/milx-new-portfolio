@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="12" fill="#0a0f14"/>
+  <!-- controller outline -->
+  <path d="M10 28 C10 22 14 18 20 18 L24 18 L28 14 L36 14 L40 18 L44 18 C50 18 54 22 54 28 L54 36 C54 44 48 50 44 50 L40 50 C38 50 36 48 32 48 C28 48 26 50 24 50 L20 50 C16 50 10 44 10 36 Z" stroke="#3b82f6" stroke-width="1.5"/>
+  <!-- d-pad -->
+  <rect x="17" y="29.5" width="10" height="3" rx="1" fill="#3b82f6"/>
+  <rect x="20.5" y="26" width="3" height="10" rx="1" fill="#3b82f6"/>
+  <!-- face buttons -->
+  <circle cx="44" cy="28" r="1.8" fill="#3b82f6"/>
+  <circle cx="40" cy="32" r="1.8" fill="#3b82f6"/>
+  <circle cx="48" cy="32" r="1.8" fill="#3b82f6"/>
+  <circle cx="44" cy="36" r="1.8" fill="#3b82f6"/>
+</svg>
