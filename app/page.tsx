@@ -36,6 +36,7 @@ export default function Page() {
           profile={profile}
           onBack={goBack}
           onSelectProject={openProject}
+          onSwitchProfile={setProfile}
         />
       )}
 
