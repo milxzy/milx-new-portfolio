@@ -157,6 +157,15 @@ export function ProjectModal({ project, onClose }: Props) {
                                         View Source
                                     </a>
                                 )}
+                                {!project.githubUrl && project.sourcePrivate && (
+                                    <span
+                                        title="Source unavailable — private company project"
+                                        className="flex items-center gap-3 px-6 py-3 bg-white/5 rounded-full text-white/30 font-medium cursor-not-allowed select-none"
+                                    >
+                                        <Github className="w-5 h-5" />
+                                        Source Private
+                                    </span>
+                                )}
                             </div>
                         </div>
 
