@@ -177,7 +177,7 @@ export function UserSelection({ onSelectProfile }: Props) {
         {/* power btn */}
         <button
           type="button"
-          className="absolute bottom-20 left-1/2 -translate-x-1/2 md:bottom-8 md:left-auto md:right-8 md:translate-x-0 p-3 rounded-full border border-white/20 text-white/40 hover:text-white/60 hover:border-white/40 transition-all duration-300"
+          className="absolute bottom-24 left-1/2 -translate-x-1/2 md:bottom-8 md:left-8 md:translate-x-0 p-3 rounded-full border border-white/20 text-white/40 hover:text-white/60 hover:border-white/40 transition-all duration-300"
           aria-label="Power"
         >
           <Power className="w-6 h-6" />
